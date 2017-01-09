@@ -1,4 +1,4 @@
-*Project name: Dice-Invaders
+/*Project name: Dice-Invaders
 *Authors: Wei-Yun Huang
 *Date: January 09, 2017
 
