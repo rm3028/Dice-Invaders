@@ -1,3 +1,13 @@
+﻿/*
+ * MainGame.cpp: Implement the game object.
+ *
+ * Authors: Wei-Yun Huang
+ * Date: January 09, 2017
+ *
+ * Copyright © 2017 Wei-Yun Huang.
+ * All rights reserved.
+ */
+
 #include "MainGame.h"
 
 
@@ -195,15 +205,15 @@ void CMainGame::gamePlay(void)
 	if (!m_alienList.empty())
 	{
 		// Draw alien
-		bool touchBoundaryX = false, touchBoundaryY = false;
+		bool alienTouchBoundaryX = false, alienTouchBoundaryY = false;
 		for (std::list <CAlien*>::iterator alien = m_alienList.begin(); alien != m_alienList.end(); alien++)
 		{
-			touchBoundaryX |= (*alien)->touchBoundaryX();
-			touchBoundaryY |= (*alien)->touchBoundaryY();
+			alienTouchBoundaryX |= (*alien)->touchBoundaryX();
+			alienTouchBoundaryY |= (*alien)->touchBoundaryY();
 		}
 		for (std::list <CAlien*>::iterator alien = m_alienList.begin(); alien != m_alienList.end(); alien++)
 		{
-			if (touchBoundaryX && move != 0.f)
+			if (alienTouchBoundaryX && move != 0.f)
 			{
 				(*alien)->setSpeedX(((*alien)->getSpeed().x) > 0.f ? -move : move);
 				(*alien)->onMoveDown();
@@ -257,7 +267,7 @@ void CMainGame::gamePlay(void)
 		m_rocketList.remove(nullptr);
 
 		// Draw player ship
-		if (!m_playerShip->isAlive() || touchBoundaryY)
+		if (!m_playerShip->isAlive() || alienTouchBoundaryY)
 		{
 			m_gameState = GS_GAMEOVER; return;
 		}

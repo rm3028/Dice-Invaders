@@ -1,3 +1,13 @@
+﻿/*
+ * BaseObject.h: Define the base object of all of the game objects.
+ *
+ * Authors: Wei-Yun Huang
+ * Date: January 09, 2017
+ *
+ * Copyright © 2017 Wei-Yun Huang.
+ * All rights reserved.
+ */
+
 #pragma once
 
 #include <float.h>

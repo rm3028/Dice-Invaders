@@ -1,3 +1,13 @@
+﻿/*
+ * Rocket.cpp: Implement the rocket object.
+ *
+ * Authors: Wei-Yun Huang
+ * Date: January 09, 2017
+ *
+ * Copyright © 2017 Wei-Yun Huang.
+ * All rights reserved.
+ */
+
 #include "Rocket.h"
 
 
