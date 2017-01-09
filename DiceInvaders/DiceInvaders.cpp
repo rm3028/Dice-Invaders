@@ -1,5 +1,5 @@
 ﻿/*
- * Example.cpp: The entry point of the program. 
+ * DiceInvaders.cpp: The entry point of the program. 
  *
  * Authors: Wei-Yun Huang
  * Date: January 09, 2017
