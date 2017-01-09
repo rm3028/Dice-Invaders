@@ -158,7 +158,7 @@
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="Example.cpp" />
+    <ClCompile Include="DiceInvaders.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Rocket.cpp" />
