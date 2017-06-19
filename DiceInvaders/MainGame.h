@@ -35,7 +35,7 @@ private:
 	HMODULE m_lib;
 
 	int m_winWidth, m_winHeight;
-	float m_playTime;
+	float m_playTime, m_startTime;
 
 private:
 	CPlayerShip *m_playerShip;

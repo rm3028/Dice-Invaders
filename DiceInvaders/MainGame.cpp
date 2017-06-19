@@ -12,7 +12,7 @@
 
 
 CMainGame::CMainGame(const wchar_t* libraryPath)
-	: m_gameState(GS_LOAD), m_playerShip(nullptr), m_playTime(0.f)
+	: m_gameState(GS_LOAD), m_playerShip(nullptr), m_playTime(0.f), m_startTime(0.f)
 {
 	srand(time(NULL));
 
@@ -133,7 +133,7 @@ void CMainGame::gameLoad(int rows, int cols)
 	lastTime = m_playTime;
 
 	// Draw message
-	m_system->drawText(0, 0, ("Time: " + std::to_string(m_playTime)).c_str());
+	m_system->drawText(0, 0, ("Time: " + std::to_string(m_playTime - m_startTime)).c_str());
 	m_system->drawText(m_winWidth >> 1, 0, ("Health: " + std::to_string((int)m_playerShip->getHealthPoints())).c_str());
 
 	if (m_alienList.empty())
@@ -199,7 +199,7 @@ void CMainGame::gamePlay(void)
 	this->onAlienHitPlayerShip();
 
 	// Draw message
-	m_system->drawText(0, 0, ("Time: " + std::to_string(m_playTime)).c_str());
+	m_system->drawText(0, 0, ("Time: " + std::to_string(m_playTime - m_startTime)).c_str());
 	m_system->drawText(m_winWidth >> 1, 0, ("Health: " + std::to_string((int)m_playerShip->getHealthPoints())).c_str());
 
 	if (!m_alienList.empty())
@@ -309,9 +309,10 @@ void CMainGame::gamePlay(void)
 void CMainGame::gameOver(void)
 {
 	// Draw message
-	m_system->drawText(0, 0, ("Time: " + std::to_string(m_playTime)).c_str());
+	m_system->drawText(0, 0, ("Time: " + std::to_string(m_playTime - m_startTime)).c_str());
 	m_system->drawText(m_winWidth >> 1, 0, ("Health: " + std::to_string((int)m_playerShip->getHealthPoints())).c_str());
-	m_system->drawText((m_winWidth >> 1) - 32, m_winHeight >> 1, ("Game Over!"));
+	m_system->drawText((m_winWidth >> 1) - 32, (m_winHeight >> 1) - 16, ("Game Over !"));
+	m_system->drawText((m_winWidth >> 1) - 80, (m_winHeight >> 1) + 16, ("Press \"SPACE\" To Restart ! "));
 
 	// Draw alien
 	for (std::list <CAlien*>::iterator alien = m_alienList.begin(); alien != m_alienList.end(); alien++)
@@ -335,6 +336,41 @@ void CMainGame::gameOver(void)
 	if (m_playerShip->isAlive())
 	{
 		m_playerShip->draw();
+	}
+
+	// Handle keyboard events
+	IDiceInvaders::KeyStatus keys;
+	m_system->getKeyStatus(keys);
+
+	if (keys.fire)
+	{
+		// Initialize player ship
+		if (m_playerShip != nullptr) { delete m_playerShip; m_playerShip = nullptr; }
+		m_playerShip = new CPlayerShip(m_system);
+		m_playerShip->setBoundariesX(0, m_winWidth - 32);
+		m_playerShip->setBoundariesY(m_winHeight - 32, m_winHeight - 32);
+		m_playerShip->setPosition(m_winWidth >> 1, 0);
+
+		for (std::list <CRocket*>::iterator rocket = m_rocketList.begin(); rocket != m_rocketList.end(); rocket++)
+		{
+			if (*rocket != nullptr) { delete *rocket; *rocket = nullptr; }
+		}
+		m_rocketList.clear();
+
+		for (std::list <CAlien*>::iterator alien = m_alienList.begin(); alien != m_alienList.end(); alien++)
+		{
+			if (*alien != nullptr) { delete *alien; *alien = nullptr; }
+		}
+		m_alienList.clear();
+
+		for (std::list <CBomb*>::iterator bomb = m_bombList.begin(); bomb != m_bombList.end(); bomb++)
+		{
+			if (*bomb != nullptr) { delete *bomb; *bomb = nullptr; }
+		}
+		m_bombList.clear();
+
+		m_startTime = m_system->getElapsedTime();
+		m_gameState = GS_LOAD;
 	}
 }
 
