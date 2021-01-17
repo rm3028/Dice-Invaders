@@ -7,7 +7,7 @@
   * Windows SDK: 10.0.18362.0
 * Author: Wei-Yun
 * Email: rm3028@hotmail.com.tw
-* Copyright © 2017 Wei-Yun Huang.
+* Copyright © 2017 Wei-Yun
 * All rights reserved.
 * Demo: 
   ![image](https://github.com/rm3028/Dice-Invaders/blob/master/Dice-Invaders-Demo.PNG)
